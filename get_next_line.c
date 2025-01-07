@@ -81,7 +81,7 @@ char	*get_buffer(int fd, char *buffer)
 	char	*new_buffer;
 	int		bytes;
 
-	new_buffer = malloc (BUFFER_SIZE + 1);
+	new_buffer = malloc ((size_t)BUFFER_SIZE + 1);
 	if (!new_buffer)
 		return (NULL);
 	bytes = 1;

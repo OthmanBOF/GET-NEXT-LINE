@@ -81,7 +81,7 @@ char	*get_buffer(int fd, char *bufs)
 	char	*new_buffer;
 	int		bytes;
 
-	new_buffer = malloc (BUFFER_SIZE + 1);
+	new_buffer = malloc ((size_t)BUFFER_SIZE + 1);
 	if (!new_buffer)
 		return (NULL);
 	bytes = 1;
@@ -103,10 +103,10 @@ char	*get_buffer(int fd, char *bufs)
 
 char	*get_next_line(int fd)
 {
-	static char	*bufs[FD_SETSIZE];
+	static char	*bufs[OPEN_MAX];
 	char		*ster;
 
-	if (fd < 0 || fd >= FD_SETSIZE || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (free(bufs[fd]), bufs[fd] = NULL, NULL);
 	bufs[fd] = get_buffer(fd, bufs[fd]);
 	if (!bufs[fd])
